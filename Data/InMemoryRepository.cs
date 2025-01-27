@@ -1,4 +1,3 @@
-// ControlEscolar.Data.InMemoryRepository
 using ControlEscolar.Interfaces;
 
 namespace ControlEscolar.Data

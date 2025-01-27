@@ -1,4 +1,3 @@
-// ControlEscolar.EntityClasses.Alumno
 using ControlEscolar.Interfaces;
 
 namespace ControlEscolar.EntityClasses

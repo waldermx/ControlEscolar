@@ -1,4 +1,3 @@
-// ControlEscolar.Factories.AlumnoFactory
 using ControlEscolar.Interfaces;
 using ControlEscolar.EntityClasses;
 
