@@ -4,6 +4,15 @@ public interface IMatriculaStrategy
     int GenerarMatricula();
 }
 
+public class Matricula
+{
+    public int Valor { get; private set; }
+    public Matricula(IMatriculaStrategy estrategia)
+    {
+        this.Valor = estrategia.GenerarMatricula();
+    }
+}
+
 public class ProfesorMatriculaStrategy : IMatriculaStrategy
 {
     public int GenerarMatricula()
@@ -24,11 +33,3 @@ public class AlumnoMatriculaStrategy : IMatriculaStrategy
     }
 }
 
-public class Matricula
-{
-    public int Valor { get; private set; }
-    public Matricula(IMatriculaStrategy estrategia)
-    {
-        this.Valor = estrategia.GenerarMatricula();
-    }
-}

@@ -2,7 +2,7 @@ using ControlEscolar.Interfaces;
 
 namespace ControlEscolar.Data
 {
-    public class InMemoryRepository : IRepository<IMatriculable>
+    public class InMemoryMatriculableRepository : IRepository<IMatriculable>
     {
         private readonly List<IMatriculable> _entidades = new List<IMatriculable>();
 

@@ -1,13 +1,16 @@
-﻿// Program.cs (Ejemplo en capa de presentación)
+﻿
 using ControlEscolar.Services;
 using ControlEscolar.Data;
 using ControlEscolar.Factories;
 using ControlEscolar.Strategies;
 
-// Configuración de dependencias
-var repository = new InMemoryRepository();
-var estrategiaAlumno = new AlumnoMatriculaStrategy();
-var factoryAlumno = new AlumnoFactory(estrategiaAlumno);
+
+var repository = new InMemoryMatriculableRepository();
+//Pasos para crear alumno
+var estrategiaAlumno = new AlumnoMatriculaStrategy(); //Define el algoritmo para generar la matricula de un alumno
+var generarAlumnoRegular = new AlumnoFactory(estrategiaAlumno);// Crea una fábrica de alumnos
+var alumno = generarAlumnoRegular.CrearEntidad("Nombre");
+
 
 // Crear coordinador
 var coordinador = new Coordinador(repository, factoryAlumno);
