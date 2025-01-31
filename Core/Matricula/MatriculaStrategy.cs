@@ -1,17 +1,22 @@
-namespace ControlEscolar.Strategies;
+/*namespace ControlEscolar.Strategies;
 public interface IMatriculaStrategy
 {
     int GenerarMatricula();
 }
 
-public class Matricula
-{
-    public int Valor { get; private set; }
-    public Matricula(IMatriculaStrategy estrategia)
+    public class Matricula
     {
-        this.Valor = estrategia.GenerarMatricula();
+        private readonly string _valor;
+
+        public Matricula(IMatriculaStrategy strategy)
+        {
+            _valor = strategy.GenerarMatricula();
+        }
+
+        public override string ToString() => _valor;
+
+        public static implicit operator string(Matricula matricula) => matricula._valor;
     }
-}
 
 public class ProfesorMatriculaStrategy : IMatriculaStrategy
 {
@@ -33,3 +38,4 @@ public class AlumnoMatriculaStrategy : IMatriculaStrategy
     }
 }
 
+*/
