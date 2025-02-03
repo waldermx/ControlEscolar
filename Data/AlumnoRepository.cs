@@ -1,13 +1,19 @@
+using Microsoft.EntityFrameworkCore;
 using ControlEscolar.Core.Usuarios;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace ControlEscolar.Data;
 
-public class AlumnoRepository : IRepository<Alumno> 
-{
-    private List<Alumno> _entidades;
 
-    public AlumnoRepository()
+
+public class AlumnoRepository : IRepository<Alumno>
+{
+    private readonly ControlEscolarContext _context;
+
+    public AlumnoRepository(ControlEscolarContext context)
     {
-        _entidades = new List<Alumno>();
+        _context = context;
     }
 
     public void AgregarUsuario(Alumno entidad)
@@ -17,43 +23,45 @@ public class AlumnoRepository : IRepository<Alumno>
             throw new ArgumentNullException(nameof(entidad), "El usuario no puede ser nulo.");
         }
 
-        if (_entidades.Any(e => e.Matricula == entidad.Matricula))
+        if (_context.Alumnos.Any(e => e.Matricula == entidad.Matricula))
         {
             throw new InvalidOperationException("Ya existe un usuario con la misma matrícula.");
         }
 
-        _entidades.Add(entidad);
+        _context.Alumnos.Add(entidad);
+        _context.SaveChanges(); // Guarda los cambios en la base de datos
     }
 
     public IEnumerable<Alumno> ObtenerUsuarios()
     {
-        return _entidades;
+        return _context.Alumnos.ToList(); // Retorna todos los alumnos de la base de datos
     }
 
     public Alumno? ObtenerUsuarioPorMatricula(string matricula)
     {
-        return _entidades.FirstOrDefault(e => e.Matricula == matricula);
+        return _context.Alumnos.FirstOrDefault(e => e.Matricula == matricula); // Busca un alumno por matrícula
     }
 
     public void ActualizarUsuario(Alumno entidad)
     {
-        var existingEntity = _entidades.FirstOrDefault(e => e.Matricula == entidad.Matricula);
+        var existingEntity = _context.Alumnos.FirstOrDefault(e => e.Matricula == entidad.Matricula);
         if (existingEntity == null)
         {
             throw new InvalidOperationException("No se encontró el usuario a actualizar.");
         }
 
-        var index = _entidades.IndexOf(existingEntity);
-        _entidades[index] = entidad;
+        // Actualiza las propiedades del alumno existente
+        _context.Entry(existingEntity).CurrentValues.SetValues(entidad);
+        _context.SaveChanges(); // Guarda los cambios en la base de datos
     }
 
     public void EliminarUsuario(string matricula)
     {
-        var entidad = _entidades.FirstOrDefault(e => e.Matricula == matricula);
+        var entidad = _context.Alumnos.FirstOrDefault(e => e.Matricula == matricula);
         if (entidad != null)
         {
-            _entidades.Remove(entidad);
+            _context.Alumnos.Remove(entidad);
+            _context.SaveChanges(); // Guarda los cambios en la base de datos
         }
     }
 }
-
