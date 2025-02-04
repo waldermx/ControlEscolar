@@ -8,13 +8,13 @@ public class Alumno : IMatriculable
     public string Nombre { get; }
     public string Matricula { get; }
 
-    public Alumno(string nombre)
+    public Alumno(string nombre, string? matricula = null)
     {
         if (string.IsNullOrWhiteSpace(nombre))
             throw new ArgumentException("El nombre no puede estar vacío", nameof(nombre));
             
         Nombre = nombre;
-        Matricula = MatriculaGenerator.GenerarMatricula("A");
+        Matricula = matricula ?? MatriculaGenerator.GenerarMatricula("A");
     }
 
     public static Alumno Crear(string nombre) => new(nombre);
