@@ -16,6 +16,7 @@ public class ConsoleMainLoop : IMainLoop
 
         while (_isRunning)
         {
+            Console.Clear();
             _menu.Display();
             var input = Console.ReadKey();
             
@@ -26,6 +27,7 @@ public class ConsoleMainLoop : IMainLoop
             else
             {
                 _menu.HandleOption(input.KeyChar);
+                Console.ReadKey();
             }
         }
 
