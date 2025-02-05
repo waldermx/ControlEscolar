@@ -6,14 +6,11 @@ namespace ControlEscolar.Core.BusinessLogic;
 
 public class ApplicationOptions : IBusinessLogic
 {
-    public IEnumerable<IOperation> GetAvailableOperations()
+    public IEnumerable<IMenu> GetAvailableOperations()
     {
-        return new List<IOperation>
+        return new List<IMenu>
         {
-            new AlumnosOperation(),
-            new CalificacionesOperation(),
-            new HorariosOperation(),
-            new ProfesoresOperation()
+            new AlumnoMenu()
         };
     }
 }
