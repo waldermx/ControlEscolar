@@ -4,13 +4,21 @@ using ControlEscolar.Infrastructure;
 
 
 
-class Program
+var businessLogic = new ApplicationOptions();
+var mainMenu = new ConsoleMenu(businessLogic);
+
+while (true) // Loop principal para mantener el menú activo
 {
-    static void Main(string[] args)
-    {
-        IBusinessLogic businessLogic = new ApplicationOptions();
-        IMenu Menu = new ConsoleMenu(businessLogic);
-        var mainLoop = new ConsoleMainLoop(Menu);
-        mainLoop.Run();
-    }
+    Console.Clear();
+    Console.WriteLine("MENÚ PRINCIPAL");
+    mainMenu.Display();
+    
+    Console.Write("\nSeleccione una opción: ");
+    var input = Console.ReadKey().KeyChar;
+    Console.WriteLine(); // Salto de línea
+    
+    mainMenu.HandleOption(input);
+
+    Console.WriteLine("\nPresione cualquier tecla para continuar...");
+    Console.ReadKey();
 }

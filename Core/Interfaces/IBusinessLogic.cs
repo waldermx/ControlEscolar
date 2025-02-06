@@ -8,5 +8,11 @@ public interface IOperation
 
 public interface IBusinessLogic
 {
-    IEnumerable<IOperation> GetAvailableOperations();
+    IEnumerable<IMenuItem> GetAvailableOperations();
+}
+
+public interface IMenuItem
+{
+    char CommandKey { get; }
+    string Description { get; }
 }

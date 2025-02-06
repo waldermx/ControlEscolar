@@ -1,3 +1,4 @@
+using ControlEscolar.Core.Interfaces;
 namespace ControlEscolar.Infrastructure;
 
 public class ConsoleMainLoop : IMainLoop
