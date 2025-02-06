@@ -23,28 +23,28 @@ public class AlumnoRepository : IRepository<Alumno>
             throw new ArgumentNullException(nameof(entidad), "El usuario no puede ser nulo.");
         }
 
-        if (_context.Alumnos.Any(e => e.Matricula == entidad.Matricula))
+        if (_context.Alumno.Any(e => e.Matricula == entidad.Matricula))
         {
             throw new InvalidOperationException("Ya existe un usuario con la misma matrícula.");
         }
 
-        _context.Alumnos.Add(entidad);
+        _context.Alumno.Add(entidad);
         _context.SaveChanges(); // Guarda los cambios en la base de datos
     }
 
     public IEnumerable<Alumno> ObtenerUsuarios()
     {
-        return _context.Alumnos.ToList(); // Retorna todos los alumnos de la base de datos
+        return _context.Alumno.ToList(); // Retorna todos los alumnos de la base de datos
     }
 
     public Alumno? ObtenerUsuarioPorMatricula(string matricula)
     {
-        return _context.Alumnos.FirstOrDefault(e => e.Matricula == matricula); // Busca un alumno por matrícula
+        return _context.Alumno.FirstOrDefault(e => e.Matricula == matricula); // Busca un alumno por matrícula
     }
 
     public void ActualizarUsuario(Alumno entidad)
     {
-        var existingEntity = _context.Alumnos.FirstOrDefault(e => e.Matricula == entidad.Matricula);
+        var existingEntity = _context.Alumno.FirstOrDefault(e => e.Matricula == entidad.Matricula);
         if (existingEntity == null)
         {
             throw new InvalidOperationException("No se encontró el usuario a actualizar.");
@@ -57,10 +57,10 @@ public class AlumnoRepository : IRepository<Alumno>
 
     public void EliminarUsuario(string matricula)
     {
-        var entidad = _context.Alumnos.FirstOrDefault(e => e.Matricula == matricula);
+        var entidad = _context.Alumno.FirstOrDefault(e => e.Matricula == matricula);
         if (entidad != null)
         {
-            _context.Alumnos.Remove(entidad);
+            _context.Alumno.Remove(entidad);
             _context.SaveChanges(); // Guarda los cambios en la base de datos
         }
     }

@@ -4,7 +4,7 @@ public class ConsoleMainLoop : IMainLoop
 {
     private readonly IMenu _menu;
     private bool _isRunning;
-
+    private bool isMenuDisplay = true;
     public ConsoleMainLoop(IMenu menu)
     {
         _menu = menu;
@@ -16,7 +16,11 @@ public class ConsoleMainLoop : IMainLoop
 
         while (_isRunning)
         {
-            _menu.Display();
+            if (isMenuDisplay){
+               _menu.Display();
+               isMenuDisplay = false;
+            }
+            
             var input = Console.ReadKey();
             
             if (char.ToLower(input.KeyChar) == 'q')

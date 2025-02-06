@@ -2,15 +2,15 @@
 using ControlEscolar.Core.Interfaces;
 using ControlEscolar.Infrastructure;
 using ControlEscolar.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
-
 class Program
 {
     static void Main(string[] args)
     {
         IBusinessLogic businessLogic = new ApplicationOptions();
-        IMenu Menu = new ConsoleMenu(businessLogic);
-        var mainLoop = new ConsoleMainLoop(Menu);
+            IMenu menu = new ConsoleMenu(businessLogic);
+            var mainLoop = new ConsoleMainLoop(menu);
 
         try
         {
