@@ -2,33 +2,27 @@ using ControlEscolar.Core.Interfaces;
 using ControlEscolar.Core.Usuarios;
 using ControlEscolar.Data;
 namespace ControlEscolar.Core.BusinessLogic;
-
 public class AlumnoMenu : IMenu
 {
     private readonly IRepository<Alumno> _alumnoRepository;
     private readonly List<IOperation> _subItems;
-    
     // Implementación de IMenuItem
     public char CommandKey => 'a';
     public string Description => "Menú Alumnos";
     public AlumnoMenu(IRepository<Alumno> alumnoRepository)
     {
         _alumnoRepository = alumnoRepository;
-
         // Initialize _subItems in the constructor
         _subItems = new List<IOperation>
         {
             new ListarAlumnosOperation(_alumnoRepository),
             new AgregarAlumnoOperation(_alumnoRepository),
-            new ModificarAlumnoOperation(),
-            new EliminarAlumnoOperation(),
-            new BuscarAlumnoOperation()
+            new ModificarAlumnoOperation(_alumnoRepository),
+            new EliminarAlumnoOperation(_alumnoRepository),
+            new BuscarAlumnoOperation(_alumnoRepository)
             //new RegresarMenuPrincipalOperation()
         };
     }
-
-
-
     public void Display()
     {
         Console.WriteLine("Sub-menú Alumnos:");
@@ -37,7 +31,6 @@ public class AlumnoMenu : IMenu
             Console.WriteLine($"{item.CommandKey}. {item.Description}");
         }
     }
-
     public void HandleOption(char option)
     {
         var selectedItem = _subItems.FirstOrDefault(i => i.CommandKey == option);

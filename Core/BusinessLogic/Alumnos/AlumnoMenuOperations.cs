@@ -38,7 +38,6 @@ public class ListarAlumnosOperation : IOperation
         Console.ReadKey();
     }
 }
-
 public class AgregarAlumnoOperation : IOperation
 {
     private readonly IRepository<Alumno> _repository;
@@ -80,34 +79,131 @@ public class AgregarAlumnoOperation : IOperation
 
 public class ModificarAlumnoOperation : IOperation
 {
+    private readonly IRepository<Alumno> _repository;
+
+    public ModificarAlumnoOperation(IRepository<Alumno> repository)
+    {
+        _repository = repository;
+    }
+
     public char CommandKey => '3';
     public string Description => "Modificar Alumno";
 
     public void Execute()
     {
-        // Logic to modify a student
+        Console.WriteLine("\nModificar Alumno");
+        Console.WriteLine("----------------");
+
+        Console.Write("Ingrese la matrícula del alumno: ");
+        string matricula = Console.ReadLine() ?? ""; // Read matricula as a string
+
+        if (string.IsNullOrWhiteSpace(matricula))
+        {
+            Console.WriteLine("Matrícula inválida.");
+            return;
+        }
+
+        var alumno = _repository.ObtenerUsuarioPorMatricula(matricula);
+        if (alumno == null)
+        {
+            Console.WriteLine("Alumno no encontrado.");
+            return;
+        }
+
+        Console.Write($"Ingrese el nuevo nombre ({alumno.Nombre}): ");
+        string nuevoNombre = Console.ReadLine() ?? "";
+        if (!string.IsNullOrWhiteSpace(nuevoNombre))
+        {
+            alumno.Nombre = nuevoNombre;
+            _repository.ActualizarUsuario(alumno);
+            Console.WriteLine("Alumno modificado exitosamente.");
+        }
+
+        Console.WriteLine("\nPresione cualquier tecla para continuar...");
+        Console.ReadKey();
     }
 }
 
 public class EliminarAlumnoOperation : IOperation
 {
+    private readonly IRepository<Alumno> _repository;
+
+    public EliminarAlumnoOperation(IRepository<Alumno> repository)
+    {
+        _repository = repository;
+    }
+
     public char CommandKey => '4';
     public string Description => "Eliminar Alumno";
 
-    public void Execute()
+   public void Execute()
+{
+    Console.WriteLine("\nEliminar Alumno");
+    Console.WriteLine("---------------");
+
+    Console.Write("Ingrese la matrícula del alumno: ");
+    string matricula = Console.ReadLine() ?? ""; // Read matricula as a string
+
+    if (string.IsNullOrWhiteSpace(matricula))
     {
-        // Logic to delete a student
+        Console.WriteLine("Matrícula inválida.");
+        return;
     }
+
+    try
+    {
+        _repository.EliminarUsuario(matricula);
+        Console.WriteLine("Alumno eliminado exitosamente.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+    }
+
+    Console.WriteLine("\nPresione cualquier tecla para continuar...");
+    Console.ReadKey();
+}
 }
 
 public class BuscarAlumnoOperation : IOperation
 {
+    private readonly IRepository<Alumno> _repository;
+
+    public BuscarAlumnoOperation(IRepository<Alumno> repository)
+    {
+        _repository = repository;
+    }
+
     public char CommandKey => '5';
     public string Description => "Buscar Alumno";
 
     public void Execute()
     {
-        // Logic to search for a student
+        Console.WriteLine("\nBuscar Alumno");
+        Console.WriteLine("-------------");
+
+        Console.Write("Ingrese la matrícula del alumno: ");
+        string matricula = Console.ReadLine() ?? ""; // Read matricula as a string
+
+        if (string.IsNullOrWhiteSpace(matricula))
+        {
+            Console.WriteLine("Matrícula inválida.");
+            return;
+        }
+
+
+        var alumno = _repository.ObtenerUsuarioPorMatricula(matricula);
+        if (alumno == null)
+        {
+            Console.WriteLine("Alumno no encontrado.");
+        }
+        else
+        {
+            Console.WriteLine($"ID: {alumno.Matricula} - Nombre: {alumno.Nombre}");
+        }
+
+        Console.WriteLine("\nPresione cualquier tecla para continuar...");
+        Console.ReadKey();
     }
 }
 

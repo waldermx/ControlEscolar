@@ -55,5 +55,10 @@ public class AlumnoRepository : IRepository<Alumno>
             _entidades.Remove(entidad);
         }
     }
+
+    public Alumno? ObtenerUsuarioPorId(int id)
+    {
+        return _entidades.FirstOrDefault(e => int.TryParse(e.Matricula, out int matriculaId) && matriculaId == id);
+    }
 }
 

@@ -5,7 +5,7 @@ namespace ControlEscolar.Core.Usuarios;
 
 public class Alumno : IMatriculable
 {
-    public string Nombre { get; }
+    public string Nombre { get; set; }
     public string Matricula { get; }
 
     public Alumno(string nombre)

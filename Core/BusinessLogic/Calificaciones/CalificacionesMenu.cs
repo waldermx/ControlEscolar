@@ -1,4 +1,7 @@
 using ControlEscolar.Core.Interfaces;
+using ControlEscolar.Data;
+using ControlEscolar.Core.Entities;
+using ControlEscolar.Core.Usuarios;
 namespace ControlEscolar.Core.BusinessLogic;
 
 public class CalificacionesMenu : IMenu
@@ -7,14 +10,27 @@ public class CalificacionesMenu : IMenu
     public char CommandKey => 'c';
     public string Description => "Menú Calificaciones";
     
-    // Sub-items del menú (operaciones relacionadas con calificaciones)
-    private readonly List<IMenuItem> _subItems = new List<IMenuItem>
+    private readonly IRepository<Calificacion> _calificacionRepository;
+    private readonly IRepository<Alumno> _alumnoRepository;
+    private readonly IRepository<Materia> _materiaRepository;
+    private readonly List<IOperation> _subItems;
+
+    public CalificacionesMenu(
+        IRepository<Calificacion> calificacionRepository,
+        IRepository<Alumno> alumnoRepository,
+        IRepository<Materia> materiaRepository)
     {
-        new VerCalificacionesOperation(),
-        new RegistrarCalificacionOperation(),
-        new ModificarCalificacionOperation(),
-        new RegresarMenuPrincipalOperation()
-    };
+        _calificacionRepository = calificacionRepository;
+        _alumnoRepository = alumnoRepository;
+        _materiaRepository = materiaRepository;
+        _subItems = new List<IOperation>
+        {
+            new VerCalificacionesOperation(_calificacionRepository),
+            new RegistrarCalificacionOperation(_calificacionRepository, _alumnoRepository, _materiaRepository), 
+            new ModificarCalificacionOperation(_calificacionRepository),
+            new RegresarMenuPrincipalOperation()
+        };
+    }
 
     public void Display()
     {

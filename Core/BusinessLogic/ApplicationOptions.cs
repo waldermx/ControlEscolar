@@ -9,10 +9,12 @@ public class ApplicationOptions : IBusinessLogic
     public IEnumerable<IMenuItem> GetAvailableOperations()
     {
         var alumnoRepository = new AlumnoRepository();
+        var calificacionRepository = new CalificacionRepository();
+        var materiaRepository = new MateriaRepository();
         return new List<IMenuItem>
         {
             new AlumnoMenu(alumnoRepository),
-            new CalificacionesMenu(),
+            new CalificacionesMenu(calificacionRepository, alumnoRepository, materiaRepository),
         };
     }
 }

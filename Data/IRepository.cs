@@ -5,7 +5,7 @@ namespace ControlEscolar.Data
     /// Interfaz para repositorios de Imatriculables
     /// </summary>
     /// <typeparam name="T">Debe implementar IMatriculable.</typeparam>
-    public interface IRepository<T> where T : IMatriculable
+    public interface IRepository<T>
     {
 
         /// <param name="entidad">Tipo IMatriculable.</param>
@@ -21,7 +21,12 @@ namespace ControlEscolar.Data
         /// <param name="matricula">Número de matrícula a buscar</param>
         /// <returns>La entidad encontrada o null si no existe</returns>
         T ObtenerUsuarioPorMatricula(string matricula);
-
+        /// <summary>
+        /// Obtiene una entidad por su ID
+        /// </summary>
+        /// <param name="id">ID a buscar</param>
+        /// <returns>La entidad encontrada o null si no existe</returns>
+        T? ObtenerUsuarioPorId(int id);
         /// <summary>
         /// Actualiza una entidad existente en el repositorio.
         /// </summary>
