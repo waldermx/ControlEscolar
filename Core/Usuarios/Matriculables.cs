@@ -45,4 +45,9 @@ public class Alumno : IMatriculable
             Nombre = nombre;
             Matricula = MatriculaGenerator.GenerarMatricula("P");
         }
+
+
+        private Profesor(){
+            
+        }
     }

@@ -5,7 +5,9 @@ namespace ControlEscolar.Data;
 
 public class ControlEscolarContext : DbContext
 {
+   
     public DbSet<Alumno> Alumno { get; set;}
+    public DbSet<Profesor> Profesor { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -16,6 +18,13 @@ public class ControlEscolarContext : DbContext
      protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Alumno>(entity =>
+        {
+            entity.HasKey(e => e.Matricula); // Define Matricula como clave primaria
+            entity.Property(e => e.Nombre).IsRequired(); 
+            
+        });
+
+         modelBuilder.Entity<Profesor>(entity =>
         {
             entity.HasKey(e => e.Matricula); // Define Matricula como clave primaria
             entity.Property(e => e.Nombre).IsRequired(); 
