@@ -1,10 +1,10 @@
 using ControlEscolar.Core.Interfaces;
 namespace ControlEscolar.Core.BusinessLogic;
 
-public class CalificacionesMenu : IMenuItem
+public class CalificacionesMenu : IMenu
 {
     // Implementación de IMenuItem
-    public char CommandKey => 'C';
+    public char CommandKey => 'c';
     public string Description => "Menú Calificaciones";
     
     // Sub-items del menú (operaciones relacionadas con calificaciones)

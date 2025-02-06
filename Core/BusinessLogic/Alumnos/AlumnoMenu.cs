@@ -4,7 +4,7 @@ namespace ControlEscolar.Core.BusinessLogic;
 public class AlumnoMenu : IMenu
 {
     // Implementación de IMenuItem
-    public char CommandKey => 'A';
+    public char CommandKey => 'a';
     public string Description => "Menú Alumnos";
     
     // Sub-items del menú (pueden ser operaciones u otros menús)
