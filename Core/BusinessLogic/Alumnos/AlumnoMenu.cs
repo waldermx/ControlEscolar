@@ -1,17 +1,33 @@
 using ControlEscolar.Core.Interfaces;
+using ControlEscolar.Core.Usuarios;
+using ControlEscolar.Data;
 namespace ControlEscolar.Core.BusinessLogic;
 
 public class AlumnoMenu : IMenu
 {
+    private readonly IRepository<Alumno> _alumnoRepository;
+    private readonly List<IOperation> _subItems;
+    
     // Implementación de IMenuItem
     public char CommandKey => 'a';
     public string Description => "Menú Alumnos";
-    
-    // Sub-items del menú (pueden ser operaciones u otros menús)
-    private readonly List<IMenuItem> _subItems = new List<IMenuItem>
+    public AlumnoMenu(IRepository<Alumno> alumnoRepository)
     {
-        new AgregarAlumnoOperation()
-    };
+        _alumnoRepository = alumnoRepository;
+
+        // Initialize _subItems in the constructor
+        _subItems = new List<IOperation>
+        {
+            new ListarAlumnosOperation(_alumnoRepository),
+            new AgregarAlumnoOperation(_alumnoRepository),
+            new ModificarAlumnoOperation(),
+            new EliminarAlumnoOperation(),
+            new BuscarAlumnoOperation()
+            //new RegresarMenuPrincipalOperation()
+        };
+    }
+
+
 
     public void Display()
     {
