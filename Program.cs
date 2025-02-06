@@ -17,7 +17,7 @@ class Program
             // Crear una instancia del contexto
             using (var context = new ControlEscolarContext())
             {
-                // Verificar si se puede conectar a la base de datos
+                // Validar la conexión a la base de datos
                 bool canConnect = context.Database.CanConnect();
                 if (canConnect)
                 {
